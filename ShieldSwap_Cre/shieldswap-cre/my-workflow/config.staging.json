@@ -1,3 +1,4 @@
 {
-  "schedule": "*/30 * * * * *"
+  "schedule": "*/30 * * * * *",
+  "openAIKey": "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"
 }

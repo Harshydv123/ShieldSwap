@@ -16320,7 +16320,7 @@ var onCronTrigger = (runtime2) => {
   const evmClient = new cre.capabilities.EVMClient(network248.chainSelector.selector);
   const http = new cre.capabilities.HTTPClient;
   runtime2.log("╔══════════════════════════════════════════╗");
-  runtime2.log("║ ShieldSwap CRE Workflow — Starting       ║");
+  runtime2.log("║   ShieldSwap CRE Workflow — Starting     ║");
   runtime2.log("╚══════════════════════════════════════════╝");
   runtime2.log(`
 [STEP 1] Reading SSPair reserves...`);
@@ -16328,20 +16328,14 @@ var onCronTrigger = (runtime2) => {
     call: encodeCallMsg({
       from: zeroAddress,
       to: SS_PAIR,
-      data: encodeFunctionData({
-        abi: PAIR_ABI,
-        functionName: "getReserves"
-      })
+      data: encodeFunctionData({ abi: PAIR_ABI, functionName: "getReserves" })
     })
   }).result();
   const token0Data = evmClient.callContract(runtime2, {
     call: encodeCallMsg({
       from: zeroAddress,
       to: SS_PAIR,
-      data: encodeFunctionData({
-        abi: PAIR_ABI,
-        functionName: "token0"
-      })
+      data: encodeFunctionData({ abi: PAIR_ABI, functionName: "token0" })
     })
   }).result();
   let poolPrice = 0.029;
@@ -16361,29 +16355,23 @@ var onCronTrigger = (runtime2) => {
     const r1 = Number(reserves[1]);
     poolPrice = aIsToken0 ? r1 / r0 : r0 / r1;
   } catch {
-    runtime2.log("   [SIM] Using fallback pool price: 0.029");
+    runtime2.log("  [SIM] Using fallback pool price: 0.029");
   }
-  runtime2.log(`   Pool price: ${poolPrice.toFixed(8)} tokenB per tokenA`);
+  runtime2.log(`  Pool price: ${poolPrice.toFixed(8)} tokenB per tokenA`);
   runtime2.log(`
 [STEP 2] Reading Chainlink Data Feeds...`);
   const ethFeedData = evmClient.callContract(runtime2, {
     call: encodeCallMsg({
       from: zeroAddress,
       to: ETH_USD_FEED,
-      data: encodeFunctionData({
-        abi: FEED_ABI,
-        functionName: "latestRoundData"
-      })
+      data: encodeFunctionData({ abi: FEED_ABI, functionName: "latestRoundData" })
     })
   }).result();
   const btcFeedData = evmClient.callContract(runtime2, {
     call: encodeCallMsg({
       from: zeroAddress,
       to: BTC_USD_FEED,
-      data: encodeFunctionData({
-        abi: FEED_ABI,
-        functionName: "latestRoundData"
-      })
+      data: encodeFunctionData({ abi: FEED_ABI, functionName: "latestRoundData" })
     })
   }).result();
   let ethPrice = 2847.23;
@@ -16402,14 +16390,14 @@ var onCronTrigger = (runtime2) => {
     ethPrice = Number(ethFeed[1]) / 1e8;
     btcPrice = Number(btcFeed[1]) / 1e8;
   } catch {
-    runtime2.log("   [SIM] Using fallback Chainlink prices");
+    runtime2.log("  [SIM] Using fallback Chainlink prices");
   }
   const marketPrice = ethPrice / btcPrice;
   const deviation = (poolPrice - marketPrice) / marketPrice * 100;
-  runtime2.log(`   ETH/USD: $${ethPrice.toFixed(2)}`);
-  runtime2.log(`   BTC/USD: $${btcPrice.toFixed(2)}`);
-  runtime2.log(`   Market: ${marketPrice.toFixed(8)}`);
-  runtime2.log(`   Deviation: ${deviation.toFixed(2)}%`);
+  runtime2.log(`  ETH/USD:   $${ethPrice.toFixed(2)}`);
+  runtime2.log(`  BTC/USD:   $${btcPrice.toFixed(2)}`);
+  runtime2.log(`  Market:    ${marketPrice.toFixed(8)}`);
+  runtime2.log(`  Deviation: ${deviation.toFixed(2)}%`);
   runtime2.log(`
 [STEP 3] Getting swap quote from ShieldPool...`);
   const quoteData = evmClient.callContract(runtime2, {
@@ -16432,9 +16420,9 @@ var onCronTrigger = (runtime2) => {
     });
     expectedOut = Number(quote) / 1000000000000000000;
   } catch {
-    runtime2.log("   [SIM] Using fallback quote: 2.663 tokenB");
+    runtime2.log("  [SIM] Using fallback quote: 2.663 tokenB");
   }
-  runtime2.log(`   100 tokenA -> ${expectedOut.toFixed(6)} tokenB`);
+  runtime2.log(`  100 tokenA -> ${expectedOut.toFixed(6)} tokenB`);
   runtime2.log(`
 [STEP 4] Consulting AI agent (GPT-4o-mini)...`);
   const openAIKey = runtime2.config.openAIKey;
@@ -16445,9 +16433,9 @@ var onCronTrigger = (runtime2) => {
 ` + `Deviation: ${deviation.toFixed(2)}%
 ` + `Expected output: ${expectedOut.toFixed(6)} tokenB for 100 tokenA
 ` + `Rules:
-` + `  - deviation > -2%: SWAP (good rate)
-` + `  - deviation between -5% and -2%: SWAP with caution
-` + `  - deviation < -5%: WAIT (bad rate)
+` + `- deviation > -2%: SWAP (good rate)
+` + `- deviation between -5% and -2%: SWAP with caution
+` + `- deviation < -5%: WAIT (bad rate)
 ` + `Respond JSON only:
 ` + `{"action":"swap" or "wait","reason":"one sentence","confidence":0.0 to 1.0}`;
   const fetchAI = (sendRequester) => {
@@ -16469,41 +16457,41 @@ var onCronTrigger = (runtime2) => {
       })).toString("base64")
     }).result();
     if (!ok(resp)) {
-      return { action: "swap", reason: "pool rate is fair", confidence: 0.91 };
+      return `{"action":"swap","reason":"pool rate is fair","confidence":0.91}`;
     }
     const data = json(resp);
     return data.choices[0].message.content.replace(/```json/gi, "").replace(/```/g, "").trim();
   };
   const aiRaw = http.sendRequest(runtime2, fetchAI, consensusIdenticalAggregation())().result();
   const decision = JSON.parse(aiRaw);
-  runtime2.log(`   AI Action: ${decision.action.toUpperCase()}`);
-  runtime2.log(`   AI Reason: ${decision.reason}`);
-  runtime2.log(`   AI Confidence: ${(decision.confidence * 100).toFixed(0)}%`);
   runtime2.log(`
 [STEP 5] Evaluating execution...`);
   const shouldExecute = decision.action === "swap" && decision.confidence >= 0.75 && deviation >= -5 && PENDING_SWAP.active === true;
   if (shouldExecute) {
-    runtime2.log("   ✅ CONDITIONS MET — swapAndWithdraw() would execute");
-    runtime2.log(`   Recipient: ${PENDING_SWAP.recipient}`);
-    runtime2.log("   Privacy preserved — zero on-chain link to depositor");
+    runtime2.log("  CONDITIONS MET — swapAndWithdraw() would execute");
+    runtime2.log(`  Recipient: ${PENDING_SWAP.recipient}`);
+    runtime2.log("  Privacy preserved — zero on-chain link to depositor");
   } else {
-    runtime2.log(`   ⏳ WAITING — ${decision.reason}`);
+    runtime2.log(`  WAITING — ${decision.reason}`);
   }
   runtime2.log(`
 ╔══════════════════════════════════════════╗`);
-  runtime2.log("║          WORKFLOW SUMMARY                ║");
-  runtime2.log(`║  Pool Price: ${poolPrice.toFixed(8).padEnd(26)}║`);
+  runtime2.log("║            WORKFLOW SUMMARY              ║");
+  runtime2.log("╠══════════════════════════════════════════╣");
+  runtime2.log(`║  Pool Price:   ${poolPrice.toFixed(8).padEnd(26)}║`);
   runtime2.log(`║  Market Price: ${marketPrice.toFixed(8).padEnd(26)}║`);
-  runtime2.log(`║  Deviation: ${(deviation.toFixed(2) + "%").padEnd(26)}║`);
-  runtime2.log(`║  AI Action: ${decision.action.toUpperCase().padEnd(26)}║`);
-  runtime2.log(`║  Confidence: ${((decision.confidence * 100).toFixed(0) + "%").padEnd(26)}║`);
-  runtime2.log(`║  Executed: ${(shouldExecute ? "YES ✅" : "NO ⏳").padEnd(26)}║`);
+  runtime2.log(`║  Deviation:    ${(deviation.toFixed(2) + "%").padEnd(26)}║`);
+  runtime2.log(`║  AI Action:    ${decision.action.toUpperCase().padEnd(26)}║`);
+  runtime2.log(`║  Confidence:   ${((decision.confidence * 100).toFixed(0) + "%").padEnd(26)}║`);
+  runtime2.log(`║  Executed:     ${(shouldExecute ? "YES ✅" : "NO ⏳").padEnd(26)}║`);
   runtime2.log("╚══════════════════════════════════════════╝");
   return shouldExecute ? "SWAP_EXECUTED" : "WAITING";
 };
 var initWorkflow = (config) => {
   const cron = new cre.capabilities.CronCapability;
-  return [handler(cron.trigger({ schedule: config.schedule }), onCronTrigger)];
+  return [
+    handler(cron.trigger({ schedule: config.schedule }), onCronTrigger)
+  ];
 };
 async function main() {
   const runner = await Runner.newRunner();

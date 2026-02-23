@@ -8,9 +8,7 @@
     "strict": true,
     "types": ["node"],
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "outDir": "./dist",
-    "rootDir": "./"
+    "allowSyntheticDefaultImports": true
   },
   "include": ["my-workflow/**/*"],
   "exclude": ["node_modules", "dist"]

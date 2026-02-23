@@ -23,11 +23,10 @@ export default function DepositModal({ onClose }: Props) {
   const [error, setError] = useState("");
   const [txHash, setTxHash] = useState("");
 
-  // Get available denominations for selected token
+  
   const availableDenominations: Denomination[] = 
     selectedToken === "TokenA" ? ["100", "10"] : ["10", "1"];
 
-  // Auto-adjust denomination if it's not available for the selected token
   React.useEffect(() => {
     if (!availableDenominations.includes(selectedDenomination)) {
       setSelectedDenomination(availableDenominations[0]);

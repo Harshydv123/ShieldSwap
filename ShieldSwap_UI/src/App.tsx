@@ -266,8 +266,8 @@ Choose your denomination and receive an untraceable secret note.
             <div className="card-icon">🔄</div>
             <h3 className="card-title">Withdraw</h3>
             <p className="card-desc">
-              Privately withdraw your Mock ETH back to any address. Zero on-chain link
-              between depositor and recipient.
+              Paste your secret note to withdraw Mock ETH/BTC to any recipient. 
+Complete privacy - no traceable connection to your original deposit.
             </p>
             <button className="card-btn card-btn-amber" onClick={() => setModal("withdraw")}>
               Withdraw Same Token →

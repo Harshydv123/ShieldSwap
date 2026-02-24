@@ -252,8 +252,8 @@ export default function App() {
             <div className="card-icon">🔒</div>
             <h3 className="card-title">Deposit</h3>
             <p className="card-desc">
-              Anonymously deposit Mock ETH into the zero-knowledge shield pool.
-              Receive a secret commitment nobody can trace back to you.
+              Deposit Mock ETH or Mock BTC into shielded pools. 
+Choose your denomination and receive an untraceable secret note.
             </p>
             <button className="card-btn card-btn-teal" onClick={() => setModal("deposit")}>
               Deposit Now →

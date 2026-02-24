@@ -20,7 +20,7 @@ export const ADDRESSES = {
 } as const;
 
 // ─── API Keys ─────────────────────────────────────────────────────────────────
-export const OPENAI_API_KEY = "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";
+export const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY || "";
 
 // ─── Field Size for ZK commitments ────────────────────────────────────────────
 export const FIELD_SIZE = BigInt("21888242871839275222246405745257275088548364400416034343698204186575808495617");

@@ -280,8 +280,8 @@ Complete privacy - no traceable connection to your original deposit.
             <div className="card-icon">⚡</div>
             <h3 className="card-title">Swap &amp; Withdraw</h3>
             <p className="card-desc">
-              AI-powered private exit. Chainlink CRE monitors pool rates every 30s and
-              executes your swap to Mock BTC at the optimal time.
+              AI-powered private exit.  Pool Rates are monitered every 30s and
+              executes your swap  at the optimal time.
             </p>
             <button className="card-btn card-btn-purple" onClick={() => setModal("swapWithdraw")}>
               Swap &amp; Withdraw →

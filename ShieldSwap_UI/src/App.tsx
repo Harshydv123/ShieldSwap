@@ -79,7 +79,7 @@ function ParticleCanvas() {
 // ─── Main App ─────────────────────────────────────────────────────────────────
 export default function App() {
   const { address } = useAccount();
-  
+
   const [modal, setModal] = useState<Modal>(null);
   const [stats, setStats] = useState<Stats>({
     reserveA: "—",
@@ -99,7 +99,7 @@ export default function App() {
       const reserveA = isAToken0 ? r0 : r1;
       const reserveB = isAToken0 ? r1 : r0;
 
-      
+
 
       setStats({
         reserveA: parseFloat(ethers.formatUnits(reserveA, 18)).toLocaleString(undefined, { maximumFractionDigits: 2 }),
@@ -113,18 +113,18 @@ export default function App() {
   const fetchUserBalances = useCallback(async (userAddress: string) => {
     try {
       const provider = new ethers.JsonRpcProvider(SEPOLIA_RPC);
-      
+
       // Fetch TokenA balance
       const tokenA = new ethers.Contract(ADDRESSES.TokenA, ERC20_ABI, provider);
       const balA = await tokenA.balanceOf(userAddress);
-      
+
       // Fetch TokenB balance
       const tokenB = new ethers.Contract(ADDRESSES.TokenB, ERC20_ABI, provider);
       const balB = await tokenB.balanceOf(userAddress);
-      
+
       // Fetch native ETH balance
       const ethBal = await provider.getBalance(userAddress);
-      
+
       setUserBalances({
         tokenA: parseFloat(ethers.formatUnits(balA, 18)).toLocaleString(undefined, { maximumFractionDigits: 2 }),
         tokenB: parseFloat(ethers.formatUnits(balB, 18)).toLocaleString(undefined, { maximumFractionDigits: 2 }),
@@ -199,9 +199,10 @@ export default function App() {
           <span className="hero-gradient">Powered by AI</span>
         </h1>
         <p className="hero-sub">
-          ShieldSwap combines zero-knowledge privacy with an AI-driven execution engine.<br />
-          Deposit tokens anonymously, let Chainlink CRE monitor market conditions every 30<br />
-          seconds, and withdraw privately when GPT-4o-mini detects the optimal swap rate.
+          ShieldSwap combines zero-knowledge privacy with AI-powered intelligence.
+          Deposit tokens anonymously into shielded pools, leverage Chainlink price feeds
+          for real-time market data, and let GPT-4o-mini optimize your swap timing -
+          complete privacy with smart execution.
         </p>
 
         {/* Live stats bar */}
@@ -216,7 +217,7 @@ export default function App() {
             <span className="stat-label">MOCK BTC RESERVE</span>
           </div>
           <div className="stat-divider" />
-          
+
           {/* User wallet balances */}
           {userBalances && (
             <>
@@ -319,11 +320,11 @@ export default function App() {
       </section>
 
       {/* ── Modals ──────────────────────────────────────────────────────────── */}
-      {modal === "deposit"       && <DepositModal      onClose={() => setModal(null)} />}
-      {modal === "withdraw"      && <WithdrawModal     onClose={() => setModal(null)} />}
-      {modal === "swapWithdraw"  && <SwapWithdrawModal onClose={() => setModal(null)} />}
-      {modal === "normalSwap"    && <SwapModal         onClose={() => setModal(null)} />}
-      {modal === "liquidity"     && <LiquidityModal    onClose={() => setModal(null)} />}
+      {modal === "deposit" && <DepositModal onClose={() => setModal(null)} />}
+      {modal === "withdraw" && <WithdrawModal onClose={() => setModal(null)} />}
+      {modal === "swapWithdraw" && <SwapWithdrawModal onClose={() => setModal(null)} />}
+      {modal === "normalSwap" && <SwapModal onClose={() => setModal(null)} />}
+      {modal === "liquidity" && <LiquidityModal onClose={() => setModal(null)} />}
 
       <style>{`
         /* ── Reset & Root ──────────────────────────────────────────────── */

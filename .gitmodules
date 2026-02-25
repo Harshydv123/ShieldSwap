@@ -1,0 +1,3 @@
+[submodule "ShieldSwap_Core/lib/openzeppelin-contracts"]
+	path = ShieldSwap_Core/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts

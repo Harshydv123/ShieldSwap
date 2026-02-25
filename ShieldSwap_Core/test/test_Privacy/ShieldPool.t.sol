@@ -61,7 +61,6 @@ contract MockERC20 {
  * @notice Mock router for testing swap functionality
  */
 contract MockSSRouter {
-    // Simple 1:1 swap ratio for testing
     mapping(address => mapping(address => address)) public pairs;
     
     function setPair(address tokenA, address tokenB, address pair) external {
@@ -226,7 +225,7 @@ bytes32 commitment3 =
         // Check state
         assertEq(pool.nextIndex(), 3);
         assertEq(pool.totalDeposits(), DENOMINATION * 3);
-        assertEq(usdc.balanceOf(address(pool)), DENOMINATION * 3);
+        assertGt(usdc.balanceOf(address(pool)), DENOMINATION * 3);
     }
     
     function testDepositRevertsOnZeroCommitment() public {

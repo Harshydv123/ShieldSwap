@@ -216,7 +216,6 @@ export default function App() {
             <span className="stat-value">{stats.reserveB}</span>
             <span className="stat-label">MOCK BTC RESERVE</span>
           </div>
-          <div className="stat-divider" />
 
           {/* User wallet balances */}
           {userBalances && (

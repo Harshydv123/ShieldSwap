@@ -13,7 +13,7 @@
 
 *The first AMM where you deposit tokens anonymously, swap inside a privacy pool with AI-powered market analysis, and withdraw to any address with zero traceable links.*
 
-**[🌐 Try Live App](https://shieldswap-rouge.vercel.app/)** • **[📜 Smart Contracts](#-deployed-contracts)** • **[🤖 CRE Workflow](#-chainlink-cre-workflow)** • **[⚡ Quick Start](#-quick-start)**
+**[🌐 Try Live App](https://shieldswap-rouge.vercel.app/)** • **[📜 Smart Contracts](https://github.com/Harshydv123/ShieldSwap/tree/main/ShieldSwap_Core)** • **[🤖 CRE Workflow](https://github.com/Harshydv123/ShieldSwap/blob/main/ShieldSwap_Cre/shieldswap-cre/my-workflow/main.ts)**
 
 </div>
 
@@ -225,7 +225,7 @@ Privacy Maintained:
 
 ## 🤖 Chainlink CRE Workflow
 
-**File:** [`ShieldSwap_CRE/shieldswap-cre/my-workflow/main.ts`](./ShieldSwap_CRE/shieldswap-cre/my-workflow/main.ts)
+**File:** [`ShieldSwap_CRE/shieldswap-cre/my-workflow/main.ts`](./ShieldSwap_Cre/shieldswap-cre/my-workflow/main.ts)
 
 ### **What It Does**
 
@@ -620,7 +620,7 @@ npm run dev
 ### **3. Test CRE Workflow**
 
 ```bash
-cd ShieldSwap/ShieldSwap_CRE/shieldswap-cre
+cd ShieldSwap/ShieldSwap_Cre/shieldswap-cre
 
 # Install dependencies
 npm install
@@ -662,7 +662,7 @@ forge script script/Deploy.s.sol:Deploy \
 ## 🛠️ Technology Stack
 
 ### **Smart Contracts**
-- Solidity ^0.8.27
+- Solidity ^0.8.20
 - Foundry (development framework)
 - OpenZeppelin (security libraries)
 - Uniswap V2 Core (AMM logic)
@@ -717,36 +717,45 @@ forge script script/Deploy.s.sol:Deploy \
 
 ## 🎯 Roadmap
 
-### **Immediate (Post-Hackathon)**
+### **Phase 1: Complete the Core (Next 2-3 Months)**
 
-- [ ] Complete ZK-SNARK integration (full MPC ceremony)
-- [ ] Frontend snarkjs implementation
-- [ ] Production Groth16 verifier deployment
-- [ ] CRE workflow production deployment
+- [ ] Integrate full ZK-SNARK proof generation in frontend
+- [ ] Replace dummy verifier with production Groth16 verifier
+- [ ] Deploy CRE workflow to Chainlink testnet
+- [ ] Add more test coverage for smart contracts
+- [ ] Create comprehensive developer documentation
 
-### **Short Term (Q2 2026)**
+### **Phase 2: Polish & Security (3-6 Months)**
 
-- [ ] Professional security audit
-- [ ] Mainnet deployment (Ethereum)
-- [ ] L2 expansion (Arbitrum, Base, Optimism)
-- [ ] More token pairs (USDC, USDT, DAI)
-- [ ] Larger denomination options
+- [ ] Community security review and bug fixes
+- [ ] Gas optimization for all contracts
+- [ ] Improve UI/UX based on user feedback
+- [ ] Add transaction history and analytics
+- [ ] Deploy on additional testnets (Arbitrum Sepolia, Base Sepolia)
 
-### **Medium Term (Q3-Q4 2026)**
+### **Phase 3: Expand Features (6-12 Months)**
 
-- [ ] Relayer network (gasless withdrawals)
-- [ ] Multi-hop swaps (A → B → C)
-- [ ] Mobile app (iOS + Android)
-- [ ] Advanced AI strategies (conservative/aggressive)
-- [ ] MEV protection mechanisms
+- [ ] Support for additional ERC20 token pairs
+- [ ] Implement relayer network for gasless withdrawals
+- [ ] Add multi-denomination support (1, 10, 100, 1000)
+- [ ] Mobile-responsive design improvements
+- [ ] Integration guides for other developers
 
-### **Long Term (2027+)**
+### **Future Goals (When Resources Allow)**
 
-- [ ] Cross-chain privacy bridges
-- [ ] DAO governance launch
-- [ ] Privacy SDK for dApp integration
-- [ ] Institutional compliance module
-- [ ] Bug bounty program
+- [ ] Mainnet deployment (after thorough security audit)
+- [ ] Open-source bounty program for contributors
+- [ ] Educational content (tutorials, videos, workshops)
+- [ ] Explore grants from Ethereum Foundation / Chainlink
+- [ ] Collaborate with privacy-focused DAOs
+
+### **Learning & Community**
+
+- [ ] Share development journey on Twitter/Medium
+- [ ] Present at university blockchain clubs
+- [ ] Contribute to open-source privacy tools
+- [ ] Mentor other students building similar projects
+- [ ] Participate in more hackathons for funding
 
 ---
 
@@ -817,3 +826,4 @@ MIT License - See [LICENSE](./LICENSE)
 **Made for Hackathon 2026 | Developer: Harshydv123**
 
 </div>
+

@@ -304,16 +304,13 @@ const onCronTrigger = (runtime: Runtime<Config>): string => {
   }
 
   // ── SUMMARY ───────────────────────────────────────────
-  runtime.log("\n╔══════════════════════════════════════════╗");
-  runtime.log("║            WORKFLOW SUMMARY              ║");
-  runtime.log("╠══════════════════════════════════════════╣");
-  runtime.log(`║  Pool Price:   ${poolPrice.toFixed(8).padEnd(26)}║`);
-  runtime.log(`║  Market Price: ${marketPrice.toFixed(8).padEnd(26)}║`);
-  runtime.log(`║  Deviation:    ${(deviation.toFixed(2)+"%").padEnd(26)}║`);
-  runtime.log(`║  AI Action:    ${decision.action.toUpperCase().padEnd(26)}║`);
-  runtime.log(`║  Confidence:   ${((decision.confidence*100).toFixed(0)+"%").padEnd(26)}║`);
-  runtime.log(`║  Executed:     ${(shouldExecute?"YES ✅":"NO ⏳").padEnd(26)}║`);
-  runtime.log("╚══════════════════════════════════════════╝");
+  runtime.log("            WORKFLOW SUMMARY              ");
+  runtime.log(`  Pool Price:   ${poolPrice.toFixed(8).padEnd(26)}`);
+  runtime.log(`  Market Price: ${marketPrice.toFixed(8).padEnd(26)}`);
+  runtime.log(`  Deviation:    ${(deviation.toFixed(2)+"%").padEnd(26)}`);
+  runtime.log(`  AI Action:    ${decision.action.toUpperCase().padEnd(26)}`);
+  runtime.log(`  Confidence:   ${((decision.confidence*100).toFixed(0)+"%").padEnd(26)}`);
+  runtime.log(`  Executed:     ${(shouldExecute?"YES ✅":"NO ⏳").padEnd(26)}`);
 
   return shouldExecute ? "SWAP_EXECUTED" : "WAITING";
 };
